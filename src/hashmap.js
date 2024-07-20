@@ -26,11 +26,48 @@ export class HashMap {
 
   set(key, value) {
     const hash = this.hash(key);
-    this.buckets[hash] = new Node(key, value);
+
+    if (!this.has(key)) {
+      const newNode = new Node(key, value);
+
+      if (this.buckets[hash] == null) {
+        this.buckets[hash] = newNode;
+      } else {
+        let node = this.buckets[hash];
+        while (node.next != null) {
+          node = node.next;
+        }
+        node.next = newNode;
+      }
+    } else {
+      let node = this.buckets[hash];
+      while (node != null && node.key != key) {
+        node = node.next;
+      }
+      if (node != null) node.value = value;
+    }
   }
 
   get(key) {
     const hash = this.hash(key);
-    return this.buckets[hash];
+    if (!this.has(key)) return null;
+
+    let node = this.buckets[hash];
+    while (node.key != null && node.key != key) {
+      node = node.next;
+    }
+    return node.value;
+  }
+
+  has(key) {
+    const hash = this.hash(key);
+    let node = this.buckets[hash];
+
+    while (node != null) {
+      if (node.key == key) return true;
+      node = node.next;
+    }
+
+    return false;
   }
 }
