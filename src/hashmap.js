@@ -115,4 +115,38 @@ export class HashMap {
   clear() {
     this.buckets.fill(null);
   }
+
+  keys() {
+    let keys = [];
+
+    this.buckets.forEach((node) => {
+      let curr = node;
+      if (curr != null) {
+        keys.push(curr.key);
+        while (curr.next != null) {
+          keys.push(curr.key);
+          curr = curr.next;
+        }
+      }
+    });
+
+    return keys;
+  }
+
+  values() {
+    let keys = [];
+
+    this.buckets.forEach((node) => {
+      let curr = node;
+      if (curr != null) {
+        keys.push(curr.value);
+        while (curr.next != null) {
+          keys.push(curr.value);
+          curr = curr.next;
+        }
+      }
+    });
+
+    return keys;
+  }
 }

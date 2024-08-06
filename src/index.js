@@ -20,8 +20,8 @@ console.log(test.get("lion"));
 console.log(test.has("bananas"));
 
 console.log(test.remove("dog"));
-console.log(test);
 
 console.log(test.length());
-test.clear();
 console.log(test);
+console.log(test.keys());
+console.log(test.values());
