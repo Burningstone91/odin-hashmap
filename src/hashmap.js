@@ -96,4 +96,19 @@ export class HashMap {
 
     return true;
   }
+
+  length() {
+    let count = 0;
+    this.buckets.forEach((node) => {
+      let curr = node;
+      if (curr != null) {
+        count += 1;
+        while (curr.next != null) {
+          count += 1;
+          curr = curr.next;
+        }
+      }
+    });
+    return count;
+  }
 }

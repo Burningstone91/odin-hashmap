@@ -21,3 +21,5 @@ console.log(test.has("bananas"));
 
 console.log(test.remove("dog"));
 console.log(test);
+
+console.log(test.length());
