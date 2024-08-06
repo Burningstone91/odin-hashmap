@@ -8,9 +8,21 @@ class Node {
 
 export class HashMap {
   constructor() {
-    this.buckets = new Array(16).fill(null);
+    this.bucketsSize = 16;
+    this.buckets = new Array(this.bucketsSize).fill(null);
     this.loadFactor = 0.75;
-    this.capacity = this.buckets.length;
+  }
+
+  load() {
+    const length = this.length();
+
+    if (length / this.buckets.length >= this.loadFactor) {
+      this.bucketsSize = this.bucketsSize * 2;
+      const oldArr = [...this.buckets];
+      this.buckets = oldArr.concat(new Array(this.bucketsSize).fill(null));
+    }
+
+    return length;
   }
 
   hash(key) {
@@ -46,6 +58,8 @@ export class HashMap {
       }
       if (node != null) node.value = value;
     }
+
+    this.load();
   }
 
   get(key) {
@@ -142,6 +156,23 @@ export class HashMap {
         keys.push(curr.value);
         while (curr.next != null) {
           keys.push(curr.value);
+          curr = curr.next;
+        }
+      }
+    });
+
+    return keys;
+  }
+
+  entries() {
+    let keys = [];
+
+    this.buckets.forEach((node) => {
+      let curr = node;
+      if (curr != null) {
+        keys.push([curr.key, curr.value]);
+        while (curr.next != null) {
+          keys.push([curr.key, curr.value]);
           curr = curr.next;
         }
       }

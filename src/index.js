@@ -19,9 +19,12 @@ test.set("lion", "golden");
 console.log(test.get("lion"));
 console.log(test.has("bananas"));
 
-console.log(test.remove("dog"));
-
 console.log(test.length());
 console.log(test);
+
 console.log(test.keys());
 console.log(test.values());
+console.log(test.entries());
+
+test.set("moon", "silver");
+console.log(test);
