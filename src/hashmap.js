@@ -111,4 +111,8 @@ export class HashMap {
     });
     return count;
   }
+
+  clear() {
+    this.buckets.fill(null);
+  }
 }

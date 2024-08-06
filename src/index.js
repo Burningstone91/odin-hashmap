@@ -23,3 +23,5 @@ console.log(test.remove("dog"));
 console.log(test);
 
 console.log(test.length());
+test.clear();
+console.log(test);
