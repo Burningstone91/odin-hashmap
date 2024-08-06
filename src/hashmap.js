@@ -49,9 +49,9 @@ export class HashMap {
   }
 
   get(key) {
-    const hash = this.hash(key);
     if (!this.has(key)) return null;
 
+    const hash = this.hash(key);
     let node = this.buckets[hash];
     while (node.key != null && node.key != key) {
       node = node.next;
@@ -69,5 +69,31 @@ export class HashMap {
     }
 
     return false;
+  }
+
+  remove(key) {
+    if (!this.has(key)) return false;
+
+    const hash = this.hash(key);
+    let node = this.buckets[hash];
+    let prev = null;
+
+    while (node.key != null && node.key != key) {
+      prev = node;
+      node = node.next;
+    }
+
+    if (prev == null && node.next == null) {
+      // Remove node if it has no successor
+      this.buckets[hash] = node.next;
+    } else if (prev == null) {
+      // Remove node if it has successor
+      this.buckets[hash] = node.next;
+    } else {
+      // Remove node and connect next
+      prev.next = node.next;
+    }
+
+    return true;
   }
 }
